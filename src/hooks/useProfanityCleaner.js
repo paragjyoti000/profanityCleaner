@@ -14,7 +14,8 @@ export default function useProfanityCleaner(textInput) {
       text: textInput
         ? textInput.toLowerCase()
         : "What is this shit. You have to do better than that.",
-      maskCharacter: "@",
+      maskCharacter:
+        "<b style='background-color: rgb(251 146 60 / var(--tw-bg-opacity));'>*</b>",
       language: "en",
     },
   };

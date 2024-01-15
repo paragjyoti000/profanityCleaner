@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { InputBox, Paragraph, ButtonComp, Profanities } from "./components";
+import parse from "html-react-parser";
+import { InputBox, Paragraph, Profanities, Footer } from "./components";
 import useProfanityCleaner from "./hooks/useProfanityCleaner";
 
 function App() {
@@ -16,11 +17,6 @@ function App() {
     setProfs(profanityCleaner.profanities);
   }, [profanityCleaner]);
 
-  const output = () => {
-    setClean(profanityCleaner.clean);
-    setProfs(profanityCleaner.profanities);
-  };
-
   return (
     <>
       <div className="my-5 w-full h-screen">
@@ -28,18 +24,16 @@ function App() {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              output();
             }}
           >
             <div className="flex items-center py-2 px-3 bg-gray-50 rounded-lg dark:bg-gray-700">
               <InputBox onTextInputChange={(a) => setInput(a)} />
-              <ButtonComp />
             </div>
           </form>
         </div>
-        <div className="grid grid-cols-3 justify-items-center h-4/5 p-10">
+        <div className="grid grid-cols-3 justify-items-center min-h-4/5 p-10">
           <Paragraph heading="Your Input Text" textData={input} />
-          <Paragraph heading="Cleaned Text" textData={clean} />
+          <Paragraph heading="Cleaned Text" textData={parse(`${clean}`)} />
           <Profanities heading="Profanities" profArr={profs} />
         </div>
         <p className="mt-5">
@@ -49,6 +43,7 @@ function App() {
             target="_blank"
           ></a>
         </p>
+        <Footer />
       </div>
     </>
   );
